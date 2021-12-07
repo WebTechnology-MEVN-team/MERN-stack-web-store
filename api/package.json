@@ -4,14 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.server.js"
+    "start": "node ./src/index.js",
+    "watch": "nodemon --inspect ./src/index.js"
   },
-  "keywords": [
-    "ecommerce",
-    "api"
-  ],
-  "author": "MEVN-team",
-  "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.809.0",
     "bcrypt": "^5.0.0",
