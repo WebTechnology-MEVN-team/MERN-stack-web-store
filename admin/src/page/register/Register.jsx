@@ -1,4 +1,5 @@
 import styles from "./register.module.css";
+import { Link } from "react-router-dom";
 
 function Register() {
   return (
@@ -41,7 +42,7 @@ function Register() {
           />
         </div>
         <div className={styles.action}>
-          <a href="#">Login</a>
+          <Link to="/login">Login</Link>
           <button id="btn" className={styles.btn}>
             Register
           </button>

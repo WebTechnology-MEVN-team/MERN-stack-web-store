@@ -1,19 +1,36 @@
 import styles from "./login.module.css";
-import { login } from "../../actions";
-import { useDispatch } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { isLoggedIn, login } from "../../actions";
 
-function Login() {
+function Login(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const auth = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!auth.authenticate) {
+      dispatch(isLoggedIn());
+    }
+  }, []);
 
   const userLogin = (e) => {
     e.preventDefault();
 
     const user = {
-      email: "check@gmail.com",
-      password: "123",
+      email,
+      password,
     };
     dispatch(login(user));
   };
+
+  if (auth.authenticate) {
+    return <Navigate to={`/`} />;
+  }
 
   return (
     <div className={styles.container}>
@@ -25,6 +42,8 @@ function Login() {
             placeholder="example@example.com"
             id="email"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={styles.inputField}>
@@ -34,16 +53,18 @@ function Login() {
             placeholder="********"
             id="password"
             name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className={styles.inputField}>
+        {/* <div className={styles.inputField}>
           <label htmlFor="remember">
             <input type="checkbox" name="" id="remember" />
             Remember me
           </label>
-        </div>
+        </div> */}
         <div className={styles.action}>
-          <p>Register</p>
+          <Link to="/register">Register</Link>
           <button id="btn" className={styles.btn}>
             Login
           </button>
