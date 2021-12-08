@@ -1,12 +1,12 @@
 import styles from "./Sidebar.module.css";
 import {
-  AttachMoney,
+  ShoppingCartOutlined,
   CategoryOutlined,
   ChatBubbleOutline,
   CommentOutlined,
-  LineStyle,
+  SignalCellularAltOutlined,
   MailOutline,
-  PersonOutline,
+  PeopleAltOutlined,
   Storefront,
   Timeline,
   TrendingUp,
@@ -20,8 +20,8 @@ function Sidebar() {
           <h3 className={styles.title}>Dashboard</h3>
           <ul className={styles.list}>
             <li className={`${styles.listItem} ${styles.active}`}>
-              <LineStyle className={styles.icon} />
-              Home
+              <SignalCellularAltOutlined className={styles.icon} />
+              Dashboard
             </li>
             <li className={styles.listItem}>
               <Timeline className={styles.icon} />
@@ -37,7 +37,7 @@ function Sidebar() {
           <h3 className={styles.title}>Quick Menu</h3>
           <ul className={styles.list}>
             <li className={styles.listItem}>
-              <PersonOutline className={styles.icon} />
+              <PeopleAltOutlined className={styles.icon} />
               User
             </li>
             <li className={styles.listItem}>
@@ -49,8 +49,8 @@ function Sidebar() {
               Categories
             </li>
             <li className={styles.listItem}>
-              <AttachMoney className={styles.icon} />
-              Transaction
+              <ShoppingCartOutlined className={styles.icon} />
+              Oder
             </li>
           </ul>
         </div>

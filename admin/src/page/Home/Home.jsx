@@ -1,23 +1,16 @@
-import Chart from "../../components/chart/Chart";
-import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import WidgetLarge from "../../components/widgets/WidgetLarge";
-import WidgetSmall from "../../components/widgets/WidgetSmall";
-import { userData } from "../../dummyData";
-import styles from "./Home.module.css";
+import React from "react";
+import "./Home.css";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Topbar from "../../components/topbar/Topbar";
+import Dashboard from "../Dashboard/Dashboard";
 
 function Home() {
   return (
-    <div className={styles.home}>
-      <FeaturedInfo />
-      <Chart
-        data={userData}
-        title="User Analytics"
-        grid
-        dataKey="Active User"
-      />
-      <div className={styles.widgets}>
-        <WidgetSmall />
-        <WidgetLarge />
+    <div className="dashboard">
+      <Topbar />
+      <div className="container">
+        <Sidebar />
+        <Dashboard />
       </div>
     </div>
   );

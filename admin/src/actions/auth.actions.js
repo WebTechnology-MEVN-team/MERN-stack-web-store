@@ -57,3 +57,12 @@ export const isLoggedIn = () => {
     }
   };
 };
+
+export const logout = () => {
+  return async (dispatch) => {
+    localStorage.clear();
+    dispatch({
+      type: authConstants.LOGOUT_REQUEST,
+    });
+  };
+};

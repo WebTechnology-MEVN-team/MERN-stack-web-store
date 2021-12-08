@@ -1,4 +1,4 @@
-import styles from "./register.module.css";
+import styles from "./Register.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 

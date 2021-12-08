@@ -1,16 +1,23 @@
-import React from "react";
-import "./dashboard.css";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Topbar from "../../components/topbar/Topbar";
-import Home from "../Home/Home";
+import Chart from "../../components/chart/Chart";
+import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
+import WidgetLarge from "../../components/widgets/WidgetLarge";
+import WidgetSmall from "../../components/widgets/WidgetSmall";
+import { userData } from "../../dummyData";
+import styles from "./Dashboard.module.css";
 
 function Dashboard() {
   return (
-    <div className="dashboard">
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Home />
+    <div className={styles.home}>
+      <FeaturedInfo />
+      {/* <Chart
+        data={userData}
+        title="User Analytics"
+        grid
+        dataKey="Active User"
+      /> */}
+      <div className={styles.widgets}>
+        <WidgetSmall />
+        <WidgetLarge />
       </div>
     </div>
   );

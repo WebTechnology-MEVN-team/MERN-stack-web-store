@@ -1,4 +1,4 @@
-import styles from "./login.module.css";
+import styles from "./Login.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";

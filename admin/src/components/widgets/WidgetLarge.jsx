@@ -2,7 +2,11 @@ import styles from "./WidgetLarge.module.css";
 
 function WidgetLarge() {
   const Button = ({ type }) => {
-    return <button className={"largeButton " + type}>{type}</button>;
+    return (
+      <button className={`${styles.largeButton}  styles.${type}`}>
+        {type}
+      </button>
+    );
   };
   return (
     <div className={styles.widgetLarge}>
