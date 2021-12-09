@@ -1,8 +1,8 @@
-import Chart from "../../components/chart/Chart";
+// import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import WidgetLarge from "../../components/widgets/WidgetLarge";
 import WidgetSmall from "../../components/widgets/WidgetSmall";
-import { userData } from "../../dummyData";
+// import { userData } from "../../dummyData";
 import styles from "./Dashboard.module.css";
 
 function Dashboard() {

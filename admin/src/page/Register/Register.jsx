@@ -1,62 +1,164 @@
-import styles from "./Register.module.css";
+import React, { useState } from "react";
+import ReactNotification, { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <span>MEVN-team </span> {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
 
 function Register() {
+  const [firstName, seFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const user = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+
+    dispatch(register(user));
+  };
 
   if (auth.authenticate) {
     return <Navigate to={`/`} />;
   }
+
+  if (user.loading) {
+    return <p>Loading ...!</p>;
+  }
+
   return (
-    <div className="wrapper">
-      <div className={styles.container}>
-        <div className={styles.form}>
-          <div className={styles.inputField}>
-            <label htmlFor="firstName">First name</label>
-            <input
-              type="text"
-              placeholder="First name"
-              id="firstName"
-              name="firstName"
-            />
-          </div>
-          <div className={styles.inputField}>
-            <label htmlFor="lastName">Last name</label>
-            <input
-              type="text"
-              placeholder="Last name"
-              id="lastName"
-              name="lastName"
-            />
-          </div>
-          <div className={styles.inputField}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              placeholder="example@example.com"
-              id="email"
-              name="email"
-            />
-          </div>
-          <div className={styles.inputField}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="********"
-              id="password"
-              name="password"
-            />
-          </div>
-          <div className={styles.action}>
-            <Link to="/login">Login</Link>
-            <button id="btn" className={styles.btn}>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <ReactNotification />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Register
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={firstName}
+                  onChange={(e) => seFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
               Register
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to="/login">Already have an account? Sign in</Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
 }
 

@@ -12,9 +12,13 @@ function App() {
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!auth.authenticate) {
-      dispatch(isLoggedIn());
+    const checkLogin = () => {
+      if (!auth.authenticate) {
+        dispatch(isLoggedIn());
+      }
     }
+
+    checkLogin();
   }, []);
 
   return (
