@@ -3,9 +3,9 @@ import { apiUrl } from "../urlConfigs";
 
 const axiosInstance = axios.create({
   baseURL: apiUrl,
-  // headers: {
-  //   "Authenticator":""
-  // },
+  headers: {
+    Authenticator: "",
+  },
 });
 
 export default axiosInstance;

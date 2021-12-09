@@ -11,6 +11,7 @@ import {
   Timeline,
   TrendingUp,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -18,11 +19,13 @@ function Sidebar() {
       <div className={styles.wrapper}>
         <div className={styles.menu}>
           <h3 className={styles.title}>Dashboard</h3>
-          <ul className={styles.list}>
+          <Link to="" className="link">
             <li className={`${styles.listItem} ${styles.active}`}>
               <SignalCellularAltOutlined className={styles.icon} />
               Dashboard
             </li>
+          </Link>
+          <ul className={styles.list}>
             <li className={styles.listItem}>
               <Timeline className={styles.icon} />
               Analytics
@@ -36,14 +39,18 @@ function Sidebar() {
         <div className={styles.menu}>
           <h3 className={styles.title}>Quick Menu</h3>
           <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <PeopleAltOutlined className={styles.icon} />
-              User
-            </li>
-            <li className={styles.listItem}>
-              <Storefront className={styles.icon} />
-              Products
-            </li>
+            <Link to="/users" className="link">
+              <li className={styles.listItem}>
+                <PeopleAltOutlined className={styles.icon} />
+                User
+              </li>
+            </Link>
+            <Link to="/products" className="link">
+              <li className={styles.listItem}>
+                <Storefront className={styles.icon} />
+                Products
+              </li>
+            </Link>
             <li className={styles.listItem}>
               <CategoryOutlined className={styles.icon} />
               Categories
