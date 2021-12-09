@@ -10,10 +10,13 @@ const initialState = {
   },
   authenticate: false,
   authenticating: false,
+  loading: false,
+  error: null,
+  message: "",
 };
 
 const authReducers = (state = initialState, action) => {
-  // console.log(action);
+  console.log(action);
 
   switch (action.type) {
     case authConstants.LOGIN_REQUEST:
@@ -35,7 +38,22 @@ const authReducers = (state = initialState, action) => {
 
     case authConstants.LOGOUT_REQUEST:
       state = {
+        ...state,
+        loading: true,
+      };
+      break;
+
+    case authConstants.LOGOUT_SUCCESS:
+      state = {
         ...initialState,
+      };
+      break;
+
+    case authConstants.LOGOUT_FAILURE:
+      state = {
+        ...state,
+        error: action.payload.error,
+        loading: false,
       };
       break;
 

@@ -15,6 +15,6 @@ router.post(
   register
 );
 router.post("/admin/login", validateLoginRequest, isRequestValidated, login);
-router.post("/admin/logout", logout);
+router.post("/admin/logout", requireLogin, logout);
 
 module.exports = router;

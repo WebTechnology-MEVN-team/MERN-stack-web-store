@@ -16,7 +16,7 @@ function App() {
       if (!auth.authenticate) {
         dispatch(isLoggedIn());
       }
-    }
+    };
 
     checkLogin();
   }, []);
