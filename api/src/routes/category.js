@@ -33,7 +33,7 @@ router.post(
   upload.single("categoryImage"),
   addCategory
 );
-router.get("/category/get-category", getCategories);
+router.get("/category", getCategories);
 router.post(
   "/category/update",
   requireLogin,

@@ -10,6 +10,9 @@ import NewProduct from "../newProduct/NewProduct";
 import NewUser from "../newUser/NewUser";
 import ProductDetail from "../productDetails/ProductDetails";
 import UserDetails from "../userDetails/UserDetails";
+import CategoryList from "../categoryList/CategoryList";
+import CategoryDetails from "../categoryDetails/CategoryDetails";
+import NewCategory from "../newCategory/NewCategory";
 
 function Home() {
   return (
@@ -29,6 +32,11 @@ function Home() {
           <Route path="users/create" element={<NewUser />} />
           <Route path="users/:id" element={<UserDetails />} />
           <Route path="users/edit/:id" element={<UserDetails />} />
+
+          <Route path="categories" element={<CategoryList />} />
+          <Route path="categories/create" element={<NewCategory />} />
+          <Route path="categories/:id" element={<UserDetails />} />
+          <Route path="categories/edit/:id" element={<CategoryDetails />} />
         </Routes>
       </div>
     </div>

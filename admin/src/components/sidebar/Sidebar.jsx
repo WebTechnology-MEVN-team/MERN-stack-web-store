@@ -51,10 +51,12 @@ function Sidebar() {
                 Products
               </li>
             </Link>
-            <li className={styles.listItem}>
-              <CategoryOutlined className={styles.icon} />
-              Categories
-            </li>
+            <Link to="/categories" className="link">
+              <li className={styles.listItem}>
+                <CategoryOutlined className={styles.icon} />
+                Categories
+              </li>
+            </Link>
             <li className={styles.listItem}>
               <ShoppingCartOutlined className={styles.icon} />
               Oder

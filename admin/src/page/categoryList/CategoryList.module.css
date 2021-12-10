@@ -1,31 +1,32 @@
-.userList {
+.categoriesList {
   flex: 6;
   padding: 20px;
 }
 
-.userListTop {
+.topTitleContainer {
   display: flex;
-  align-items: right;
+  align-items: center;
   justify-content: space-between;
 }
-
-.userCreateButton {
+.categoryTitle {
+}
+.createButton {
   width: 80px;
   border: none;
   padding: 5px;
   background-color: teal;
-  color: white;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
+  color: white;
+  font-size: 16px;
 }
 
-.userListUser {
+.listItem {
   display: flex;
   align-items: center;
 }
 
-.userListImg {
+.listImg {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -33,7 +34,7 @@
   margin-right: 10px;
 }
 
-.userListEdit {
+.listEdit {
   border: none;
   border-radius: 10px;
   padding: 5px 10px;
@@ -43,7 +44,7 @@
   margin-right: 20px;
 }
 
-.userListDelete {
+.listDelete {
   color: red;
   cursor: pointer;
 }

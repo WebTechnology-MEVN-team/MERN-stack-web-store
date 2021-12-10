@@ -7,7 +7,7 @@ import React, { useState } from "react";
 
 function ProductList() {
   const [data, setData] = useState(productRows);
-
+  console.log(data);
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
