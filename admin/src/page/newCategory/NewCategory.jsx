@@ -1,15 +1,26 @@
 import {
-  CalendarToday,
-  LocationSearching,
-  MailOutline,
-  PermIdentity,
-  PhoneAndroid,
+  BorderColorOutlined,
   Publish,
+  SettingsEthernetOutlined,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useState } from "react";
 import styles from "./NewCategory.module.css";
 
 function NewCategory() {
+  const [categoryName, setCategoryName] = useState();
+  const [parentCategoryId, setParentCategoryId] = useState();
+  const [categoryImage, setCategoryImage] = useState();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newCategory = {
+      categoryName,
+      parentCategoryId,
+    };
+    console.log(newCategory);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
@@ -24,40 +35,61 @@ function NewCategory() {
               className={styles.showImg}
             />
             <div className={styles.showTopTitle}>
-              <span className={styles.showCategoryName}>Anna Becker</span>
+              <span className={styles.showCategoryName}>{categoryName}</span>
             </div>
           </div>
           <div className={styles.showBottom}>
-            <span className={styles.showTitle}>Account Details</span>
+            <span className={styles.showTitle}>Category details</span>
             <div className={styles.showDetails}>
-              <PermIdentity className={styles.showIcon} />
-              <span className={styles.showInfoTitle}>annabeck99</span>
+              <BorderColorOutlined className={styles.showIcon} />
+              <span className={styles.showInfoTitle}>{categoryName}</span>
             </div>
             <div className={styles.showDetails}>
-              <CalendarToday className={styles.showIcon} />
-              <span className={styles.showInfoTitle}>10.12.1999</span>
+              <SettingsEthernetOutlined className={styles.showIcon} />
+              <span className={styles.showInfoTitle}>{parentCategoryId}</span>
             </div>
           </div>
         </div>
         <div className={styles.create}>
-          <span className={styles.createTitle}>Edit</span>
-          <form className={styles.createForm}>
+          <span className={styles.createTitle}>New</span>
+          <form className={styles.createForm} onSubmit={handleSubmit}>
             <div className={styles.createLeft}>
               <div className={styles.createItem}>
-                <label>Username</label>
+                <label>Category name</label>
                 <input
                   type="text"
-                  placeholder="annabeck99"
+                  required
                   className={styles.createInput}
+                  value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
                 />
               </div>
               <div className={styles.createItem}>
-                <label>Full Name</label>
+                {/* <label>Parent</label>
                 <input
                   type="text"
-                  placeholder="Anna Becker"
                   className={styles.createInput}
-                />
+                  value={parentCategoryId}
+                  onChange={(e) => setParentCategoryId(e.target.value)}
+                /> */}
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <InputLabel id="select-parent-label">Parent</InputLabel>
+                  <Select
+                    labelId="select-parent-label"
+                    id="select-parent"
+                    // value={age}
+                    // onChange={handleChange}
+                    label="Parent"
+                    className={styles.createInput}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
               </div>
             </div>
             <div className={styles.createRight}>
@@ -72,7 +104,9 @@ function NewCategory() {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className={styles.createNewButton}>Create new</button>
+              <button type="submit" className={styles.createNewButton}>
+                Create new
+              </button>
             </div>
           </form>
         </div>

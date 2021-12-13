@@ -10,15 +10,28 @@
 }
 .categoryTitle {
 }
-.createButton {
-  width: 80px;
-  border: none;
-  padding: 5px;
-  background-color: teal;
-  border-radius: 5px;
+
+.leftContainer {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  position: relative;
   cursor: pointer;
-  color: white;
-  font-size: 16px;
+  margin-right: 10px;
+}
+
+.actionRed {
+  color: red;
+}
+
+.actionGreen {
+  color: green;
+}
+
+.actionBlue {
+  color: blue;
 }
 
 .listItem {
