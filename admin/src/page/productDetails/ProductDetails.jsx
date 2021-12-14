@@ -63,7 +63,7 @@ function ProductDetail() {
                 alt=""
                 className="productUploadImg"
               />
-              <label for="file">
+              <label htmlFor="file">
                 <Publish />
               </label>
               <input type="file" id="file" style={{ display: "none" }} />

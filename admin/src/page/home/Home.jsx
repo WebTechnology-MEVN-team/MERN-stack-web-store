@@ -34,9 +34,6 @@ function Home() {
           <Route path="users/edit/:id" element={<UserDetails />} />
 
           <Route path="categories" element={<CategoryList />} />
-          <Route path="categories/create" element={<NewCategory />} />
-          <Route path="categories/:id" element={<UserDetails />} />
-          <Route path="categories/edit/:id" element={<CategoryDetails />} />
         </Routes>
       </div>
     </div>
