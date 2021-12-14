@@ -23,6 +23,20 @@ export default (state = initialState, action) => {
       };
       break;
 
+    case productConstants.ADD_PRODUCT_REQUEST:
+      state = {
+        ...state,
+        loading: true,
+      };
+      break;
+
+    case productConstants.ADD_PRODUCT_SUCCESS:
+      state = {
+        ...state,
+        loading: false,
+      };
+      break;
+
     default:
       break;
   }

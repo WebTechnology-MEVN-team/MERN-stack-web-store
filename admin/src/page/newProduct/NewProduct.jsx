@@ -1,28 +1,63 @@
 import { Publish } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./NewProduct.module.css";
 import { useSelector, useDispatch } from "react-redux";
+import { addProduct, getAllCategories } from "../../actions";
 
 function NewProduct() {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
   const [productPictures, setProductPictures] = useState([]);
 
   const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
+
+  const getCategoriesList = (categories, options = []) => {
+    for (let category of categories) {
+      options.push({ value: category._id, name: category.name });
+      if (category.children.length > 0) {
+        getCategoriesList(category.children, options);
+      }
+    }
+
+    return options;
+  };
+
+  const handleSubmit = async () => {
+    const form = new FormData();
+    form.append("name", name);
+    form.append("quantity", quantity);
+    form.append("price", price);
+    form.append("description", description);
+    form.append("category", categoryId);
+
+    for (let pic of productPictures) {
+      form.append("productPicture", pic);
+    }
+
+    dispatch(addProduct(form));
+  };
+
+  const handleProductPicture = (e) => {
+    setProductPictures([...productPictures, e.target.files[0]]);
+    console.log(e.target.files[0]);
+  };
 
   return (
     <div className={styles.newProduct}>
       <h1 className={styles.addProductTitle}>New Product</h1>
       <div className={styles.topCreate}>
         <div className={styles.productInfoLeft}>
-          <img
-            src="https://i.pinimg.com/736x/3a/5a/96/3a5a9634b87037c6c3537e6f076285ba.jpg"
-            alt=""
-          />
+          {productPictures.length > 0 && (
+            <img src={URL.createObjectURL(productPictures[0])} alt="" />
+          )}
         </div>
         <div className={styles.productInfoRight}>
           <div className={styles.productInfoItem}>
@@ -47,18 +82,29 @@ function NewProduct() {
           </div>
         </div>
       </div>
-      <form className={styles.addProductForm}>
+      <div className={styles.addProductForm}>
         <div className={styles.formLeft}>
           <div className={styles.addProductItem}>
             <label>Image</label>
             <label htmlFor="file">
               <Publish />
             </label>
-            <input type="file" id="file" style={{ display: "none" }} />
+            {productPictures.length > 0
+              ? productPictures.map((pic, index) => (
+                  <div key={index}>{pic.name}</div>
+                ))
+              : null}
+            <input
+              type="file"
+              id="file"
+              style={{ display: "none" }}
+              onChange={(e) => handleProductPicture(e)}
+            />
           </div>
           <div className={styles.addProductItem}>
             <label>Name</label>
             <input
+              required
               type="text"
               placeholder="Product name"
               onChange={(e) => setName(e.target.value)}
@@ -67,6 +113,7 @@ function NewProduct() {
           <div className={styles.addProductItem}>
             <label>Price</label>
             <input
+              required
               type="number"
               placeholder="123"
               onChange={(e) => setPrice(e.target.value)}
@@ -75,6 +122,7 @@ function NewProduct() {
           <div className={styles.addProductItem}>
             <label>Quantity</label>
             <input
+              required
               type="text"
               placeholder="123"
               onChange={(e) => setQuantity(e.target.value)}
@@ -82,9 +130,16 @@ function NewProduct() {
           </div>
           <div className={styles.addProductItem}>
             <label>Category</label>
-            <select name="active" id="active">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+            >
+              <option value={null}>None</option>
+              {getCategoriesList(category.categories).map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -92,7 +147,7 @@ function NewProduct() {
           <div className={styles.addProductItem}>
             <label>Descriptions</label>
             <textarea
-              name="description"
+              required
               id=""
               cols="50"
               rows="10"
@@ -100,9 +155,11 @@ function NewProduct() {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
-          <button className={styles.addProductButton}>Create</button>
+          <button className={styles.addProductButton} onClick={handleSubmit}>
+            Create
+          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

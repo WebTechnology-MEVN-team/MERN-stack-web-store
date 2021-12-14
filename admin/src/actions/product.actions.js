@@ -6,7 +6,6 @@ export const getAllProducts = () => {
     try {
       dispatch({ type: productConstants.GET_ALL_PRODUCTS_REQUEST });
       const res = await axios.post("product");
-      // console.log("return [.] res", res.data.products);
 
       if (res.status === 200) {
         const productList = res.data;
@@ -30,9 +29,11 @@ export const addProduct = (form) => {
   return async (dispatch) => {
     try {
       dispatch({ type: productConstants.ADD_PRODUCT_REQUEST });
-      const res = await axios.post(`product/create`, form);
+      const res = await axios.post("product/create", form);
+
       if (res.status === 201) {
         dispatch({ type: productConstants.ADD_PRODUCT_SUCCESS });
+        window.location.replace("");
         dispatch(getAllProducts());
       } else {
         dispatch({ type: productConstants.ADD_PRODUCT_FAILURE });
