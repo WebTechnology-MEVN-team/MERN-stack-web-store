@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import ReactNotification, { store } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -68,7 +64,6 @@ function Register() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <ReactNotification />
         <Box
           sx={{
             marginTop: 8,

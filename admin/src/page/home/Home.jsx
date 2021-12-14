@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.css";
+import styles from "./Home.module.css";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Topbar from "../../components/topbar/Topbar";
@@ -18,7 +18,7 @@ function Home() {
   return (
     <div className="dashboard">
       <Topbar />
-      <div className="container">
+      <div className={styles.container}>
         <Sidebar />
         <Routes>
           <Route path="*" element={<Dashboard />} />

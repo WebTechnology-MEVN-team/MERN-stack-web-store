@@ -1,23 +1,47 @@
 import "./productList.css";
 import { DeleteOutline } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
-import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../../actions";
 
 function ProductList() {
-  const [data, setData] = useState(productRows);
-  console.log(data);
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
+  console.log(product);
+
+  const getProductList = (products) => {
+    let myProducts = [];
+    for (let product of products) {
+      myProducts.push({
+        id: product._id,
+        name: product.name,
+        category: product.category.name,
+        picture:
+          product.productPictures.length > 0 ? product.productPictures[0] : "",
+        price: product.price,
+        quantity: product.quantity,
+      });
+    }
+    return myProducts;
+  };
+
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    console.log("delete", id);
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 100 },
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      width: 250,
       renderCell: (params) => {
         return (
           <div className="productListItem">
@@ -27,10 +51,10 @@ function ProductList() {
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
+    { field: "category", headerName: "Category", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "quantity",
+      headerName: "Quantity",
       width: 120,
     },
     {
@@ -58,9 +82,13 @@ function ProductList() {
     },
   ];
 
+  const data = getProductList(product.products);
+  console.log("ProductList [.] data", data);
+
   return (
     <div className="productList">
       <div className="productListTop">
+        <h1 className="topTitle">Products</h1>
         <Link to="/products/create">
           <button className="productCreateButton">Create</button>
         </Link>

@@ -71,7 +71,7 @@ export const deleteCategories = (ids) => {
         ids,
       },
     });
-    if (res.status == 201) {
+    if (res.status === 201) {
       dispatch(getAllCategories());
       dispatch({ type: categoryConstants.DELETE_CATEGORIES_SUCCESS });
     } else {

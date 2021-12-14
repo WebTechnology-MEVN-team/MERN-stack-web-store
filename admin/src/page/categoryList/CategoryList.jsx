@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CategoryList.module.css";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Modal } from "react-bootstrap";
 import {
   IoIosCheckboxOutline,
   IoIosCheckbox,
@@ -19,7 +19,12 @@ import "react-checkbox-tree/lib/react-checkbox-tree.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories, addCategory } from "../../actions";
+import {
+  getAllCategories,
+  addCategory,
+  updateCategories,
+  deleteCategories,
+} from "../../actions";
 import AddCategoryModal from "../../components/category/AddCatModal";
 import UpdateCategoriesModal from "../../components/category/UpdateCatModal";
 
@@ -34,7 +39,6 @@ function CategoryList() {
   const [checked, setChecked] = useState([]);
   const [expanded, setExpanded] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
 
   const [checkedArray, setCheckedArray] = useState([]);
   const [expandedArray, setExpandedArray] = useState([]);
@@ -81,7 +85,7 @@ function CategoryList() {
     checked.length > 0 &&
       checked.forEach((categoryId, index) => {
         const category = categories.find(
-          (category, _index) => categoryId == category.value
+          (category, _index) => categoryId === category.value
         );
         category && checkedArray.push(category);
       });
@@ -89,13 +93,15 @@ function CategoryList() {
     expanded.length > 0 &&
       expanded.forEach((categoryId, index) => {
         const category = categories.find(
-          (category, _index) => categoryId == category.value
+          (category, _index) => categoryId === category.value
         );
         category && expandedArray.push(category);
       });
 
     setCheckedArray(checkedArray);
     setExpandedArray(expandedArray);
+
+    console.log({ expandedArray, checkedArray });
   };
 
   //Add new category zone
@@ -123,15 +129,65 @@ function CategoryList() {
   };
 
   //Update categories zone
-  const handleCategoryInput = () => {};
+  const updateCats = () => {
+    updateItemToArray();
+    setIsUpdate(true);
+  };
+
+  const handleCategoryInput = (key, value, index, type) => {
+    console.log(value);
+    if (type === "checked") {
+      const updatedCheckedArray = checkedArray.map((item, _index) =>
+        index === _index ? { ...item, [key]: value } : item
+      );
+      setCheckedArray(updatedCheckedArray);
+    } else if (type === "expanded") {
+      const updatedExpandedArray = expandedArray.map((item, _index) =>
+        index === _index ? { ...item, [key]: value } : item
+      );
+      setExpandedArray(updatedExpandedArray);
+    }
+  };
 
   const handleUpdateSubmit = () => {
-    updateItemToArray();
+    const form = new FormData();
+
+    expandedArray.forEach((item, index) => {
+      form.append("_id", item.value);
+      form.append("name", item.name);
+      form.append("parentId", item.parentId ? item.parentId : "");
+      form.append("type", item.type);
+    });
+    checkedArray.forEach((item, index) => {
+      form.append("_id", item.value);
+      form.append("name", item.name);
+      form.append("parentId", item.parentId ? item.parentId : "");
+      form.append("type", item.type);
+    });
+
+    dispatch(updateCategories(form));
+    setIsUpdate(false);
   };
 
   //Delete categories zone
-  const deleteCategory = () => {
-    console.log("Deleted");
+  const deleteCats = () => {
+    updateItemToArray();
+    const checkedIdsArray = checkedArray.map((item, index) => ({
+      _id: item.value,
+    }));
+    const expandedIdsArray = expandedArray.map((item, index) => ({
+      _id: item.value,
+    }));
+
+    const idsArray = expandedIdsArray.concat(checkedIdsArray);
+
+    if (checkedIdsArray.length > 0) {
+      dispatch(deleteCategories(checkedIdsArray)).then((result) => {
+        if (result) {
+          dispatch(getAllCategories());
+        }
+      });
+    }
   };
 
   //for list in Modal
@@ -152,15 +208,13 @@ function CategoryList() {
           </div>
           <div
             className={`${styles.iconContainer} ${styles.actionRed}`}
-            onClick={deleteCategory}
+            onClick={deleteCats}
           >
             <DeleteOutline />
           </div>
           <div
             className={`${styles.iconContainer} ${styles.actionBlue}`}
-            onClick={() => {
-              setIsUpdate(true);
-            }}
+            onClick={updateCats}
           >
             <ModeOutlined />
           </div>

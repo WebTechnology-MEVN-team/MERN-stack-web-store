@@ -36,14 +36,13 @@ router.post(
   createProduct
 );
 router.get("/products/:slug", getProductsBySlug);
-//router.get('/category/getcategory', getCategories);
 router.get("/product/:productId", getProductDetailsById);
 router.delete(
-  "/product/deleteProductById",
+  "/product/delete",
   requireLogin,
   adminMiddleware,
   deleteProductById
 );
-router.post("/product/getProducts", requireLogin, adminMiddleware, getProducts);
+router.post("/product", requireLogin, adminMiddleware, getProducts);
 
 module.exports = router;

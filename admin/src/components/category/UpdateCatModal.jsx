@@ -16,7 +16,7 @@ const UpdateCategoriesModal = (props) => {
     onSubmit,
   } = props;
 
-  console.log({ expandedArray, checkedArray });
+  // console.log({ expandedArray, checkedArray });
 
   return (
     <NewModal
@@ -30,10 +30,18 @@ const UpdateCategoriesModal = (props) => {
         <Col>
           <h6>Expanded</h6>
         </Col>
+        |
+        <Col>
+          <h6>Category</h6>
+        </Col>
+        |
+        <Col>
+          <h6>Type</h6>
+        </Col>
       </Row>
       {expandedArray.length > 0 &&
         expandedArray.map((item, index) => (
-          <Row key={index}>
+          <Row key={index} style={{ marginTop: "2px" }}>
             <Col>
               <InputComponent
                 value={item.name}
@@ -80,10 +88,22 @@ const UpdateCategoriesModal = (props) => {
             </Col>
           </Row>
         ))}
-      <h6>Checked Categories</h6>
+      <Row>
+        <Col>
+          <h6>Checked Categories</h6>
+        </Col>
+        |
+        <Col>
+          <h6>Category</h6>
+        </Col>
+        |
+        <Col>
+          <h6>Type</h6>
+        </Col>
+      </Row>
       {checkedArray.length > 0 &&
         checkedArray.map((item, index) => (
-          <Row key={index}>
+          <Row key={index} style={{ marginTop: "2px" }}>
             <Col>
               <InputComponent
                 value={item.name}
