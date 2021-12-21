@@ -6,7 +6,7 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, action) => {
+const productReducers = (state = initialState, action) => {
   switch (action.type) {
     case productConstants.GET_ALL_PRODUCTS_REQUEST:
       state = {
@@ -43,3 +43,5 @@ export default (state = initialState, action) => {
 
   return state;
 };
+
+export default productReducers;

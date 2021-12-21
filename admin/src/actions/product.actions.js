@@ -47,9 +47,10 @@ export const addProduct = (form) => {
 export const deleteProductById = (payload) => {
   return async (dispatch) => {
     try {
-      const res = await axios.delete(`product/deleteProductById`, {
+      const res = await axios.delete(`product/delete`, {
         data: { payload },
       });
+
       dispatch({ type: productConstants.DELETE_PRODUCT_BY_ID_REQUEST });
       if (res.status === 202) {
         dispatch({ type: productConstants.DELETE_PRODUCT_BY_ID_SUCCESS });

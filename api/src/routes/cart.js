@@ -1,7 +1,6 @@
 const express = require("express");
 const {
   addItemToCart,
-  addToCart,
   getCartItems,
   removeCartItems,
 } = require("../controller/cart");
@@ -14,7 +13,6 @@ router.post(
   userMiddleware,
   addItemToCart
 );
-//router.post('/user/cart/addToCartByLogin', requireLogin, userMiddleware, addToCart);
 router.post("/user/getCartItems", requireLogin, userMiddleware, getCartItems);
 //new update
 router.post(

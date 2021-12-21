@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { isLoggedIn } from "./actions";
+import { getInitialData, isLoggedIn } from "./actions";
 import PrivateOutlet from "./components/privateOutlet/PrivateOutlet";
 import Home from "./page/home/Home";
 import Login from "./page/login/Login";
@@ -12,14 +12,13 @@ function App() {
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const checkLogin = () => {
-      if (!auth.authenticate) {
-        dispatch(isLoggedIn());
-      }
-    };
-
-    checkLogin();
-  }, []);
+    if (!auth.authenticate) {
+      dispatch(isLoggedIn());
+    }
+    if (auth.authenticate) {
+      dispatch(getInitialData());
+    }
+  }, [auth.authenticate]);
 
   return (
     <div className="App">
@@ -29,7 +28,7 @@ function App() {
         </Route>
 
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
       </Routes>
     </div>
   );

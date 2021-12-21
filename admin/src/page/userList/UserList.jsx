@@ -1,42 +1,29 @@
 import "./userList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
-import { userRows } from "../../dummyData";
+// import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 function UserList() {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    console.log("handleDelete [.] id", id);
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 120 },
     {
-      field: "user",
-      headerName: "User",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
+      field: "fullName",
+      headerName: "Full Name",
+      width: 250,
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "email", headerName: "Email", width: 250 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "role",
+      headerName: "Role",
       width: 120,
-    },
-    {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
     },
     {
       field: "action",

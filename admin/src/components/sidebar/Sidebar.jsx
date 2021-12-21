@@ -2,14 +2,9 @@ import styles from "./Sidebar.module.css";
 import {
   ShoppingCartOutlined,
   CategoryOutlined,
-  ChatBubbleOutline,
-  CommentOutlined,
-  SignalCellularAltOutlined,
-  MailOutline,
   PeopleAltOutlined,
   Storefront,
-  Timeline,
-  TrendingUp,
+  NoteAddOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -21,20 +16,10 @@ function Sidebar() {
           <h3 className={styles.title}>Dashboard</h3>
           <Link to="" className="link">
             <li className={`${styles.listItem} ${styles.active}`}>
-              <SignalCellularAltOutlined className={styles.icon} />
-              Dashboard
+              <NoteAddOutlined className={styles.icon} />
+              Pages
             </li>
           </Link>
-          <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <Timeline className={styles.icon} />
-              Analytics
-            </li>
-            <li className={styles.listItem}>
-              <TrendingUp className={styles.icon} />
-              Sales
-            </li>
-          </ul>
         </div>
         <div className={styles.menu}>
           <h3 className={styles.title}>Quick Menu</h3>
@@ -57,27 +42,12 @@ function Sidebar() {
                 Categories
               </li>
             </Link>
-            <li className={styles.listItem}>
-              <ShoppingCartOutlined className={styles.icon} />
-              Oder
-            </li>
-          </ul>
-        </div>
-        <div className={styles.menu}>
-          <h3 className={styles.title}>Notification</h3>
-          <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <MailOutline className={styles.icon} />
-              Mail
-            </li>
-            <li className={styles.listItem}>
-              <CommentOutlined className={styles.icon} />
-              Comments
-            </li>
-            <li className={styles.listItem}>
-              <ChatBubbleOutline className={styles.icon} />
-              Messages
-            </li>
+            <Link to="/orders" className="link">
+              <li className={styles.listItem}>
+                <ShoppingCartOutlined className={styles.icon} />
+                Oder
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

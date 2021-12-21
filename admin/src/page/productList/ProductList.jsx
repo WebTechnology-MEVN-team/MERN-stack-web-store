@@ -4,7 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../actions";
+import { getAllProducts, deleteProductById } from "../../actions";
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -24,7 +24,9 @@ function ProductList() {
         name: product.name,
         category: product.category.name,
         picture:
-          product.productPictures.length > 0 ? product.productPictures[0] : "",
+          product.productPictures.length > 0
+            ? `http://localhost:5000/public/${product.productPictures[0].img}`
+            : "",
         price: product.price,
         quantity: product.quantity,
       });
@@ -33,7 +35,10 @@ function ProductList() {
   };
 
   const handleDelete = (id) => {
-    console.log("delete", id);
+    const payload = {
+      productId: id,
+    };
+    dispatch(deleteProductById(payload));
   };
 
   const columns = [
@@ -45,7 +50,7 @@ function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
+            <img className="productListImg" src={params.row.picture} alt="" />
             {params.row.name}
           </div>
         );

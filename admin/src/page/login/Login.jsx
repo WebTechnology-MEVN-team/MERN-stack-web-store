@@ -118,7 +118,7 @@ function Login() {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link to="/register">Don't have an account? Register</Link>
+                {/* <Link to="/register">Don't have an account? Register</Link> */}
               </Grid>
             </Grid>
           </Box>
